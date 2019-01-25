@@ -1,11 +1,14 @@
 #!/bin/bash -e
 
 if [ -z "$NAMESPACES" ]; then
-    NAMESPACES=$(kubectl get ns -o jsonpath={.items[*].metadata.name})
+    # NAMESPACES=$(kubectl get ns -o jsonpath={.items[*].metadata.name})
+    NAMESPACES=""
 fi
 
-RESOURCETYPES="${RESOURCETYPES:-"ingress deployment configmap svc rc ds networkpolicy statefulset cronjob pvc"}"
-GLOBALRESOURCES="${GLOBALRESOURCES:-"namespace storageclass clusterrole clusterrolebinding customresourcedefinition"}"
+# RESOURCETYPES="${RESOURCETYPES:-"ingress deployment configmap svc rc ds networkpolicy statefulset cronjob pvc"}"
+RESOURCETYPES="${RESOURCETYPES:-""}"
+# GLOBALRESOURCES="${GLOBALRESOURCES:-"namespace storageclass clusterrole clusterrolebinding customresourcedefinition"}"
+GLOBALRESOURCES="${GLOBALRESOURCES:-"pv"}"
 
 # Initialize git repo
 [ -z "$DRY_RUN" ] && [ -z "$GIT_REPO" ] && echo "Need to define GIT_REPO environment variable" && exit 1
